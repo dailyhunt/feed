@@ -1,0 +1,13 @@
+log:
+  Level: debug
+  Format: json #  text is another value supported
+  Output: stdout # stdout or file
+  File:
+    Filename: "feed.log"
+    MaxSize: 4024
+    Compress: true
+    MaxBackups: 5
+    MaxAge: 5
+
+server:
+  port: 8080
