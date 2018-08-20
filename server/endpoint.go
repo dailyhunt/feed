@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/dailyhunt/feed/dsl"
+	"github.com/dailyhunt/feed/engine"
 )
 
 type HttpMethod string
@@ -13,10 +13,8 @@ const (
 )
 
 type HttpEndpoint struct {
-	Path               string
-	Method             HttpMethod
-	FeedContextBuilder FeedContextBuilder
-	FeedDsl            *dsl.Feed
+	Path                 string
+	Method               HttpMethod
+	EngineContextBuilder engine.ContextBuilderFn
+	FeedSet              *dsl.FeedSet
 }
-
-type FeedContextBuilder func(c *gin.Context)

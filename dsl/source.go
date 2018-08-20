@@ -7,7 +7,7 @@ type SourcePipeline struct {
 
 // should we be passing source query ?
 func (source *SourcePipeline) Source() (*SourcePipeline) {
-	// it will create a new source
+	// TODO: it will create a new source, and appends to the list
 
 	return nil
 }

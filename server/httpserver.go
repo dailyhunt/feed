@@ -22,7 +22,10 @@ func HttpServerRunner(appName string, version string, builder EndpointsBuilder, 
 
 		//var endpoints = builder()
 
-		// TODO: build feed engine from end points
+		//for _, _endpoint := range endpoints {
+		//	// TODO: build feed engine from end points
+		//
+		//}
 
 		// Do Stuff Here
 		logger.Info(fmt.Sprintf("Starting %s server [%s] on port=%d", appName, version, port))
