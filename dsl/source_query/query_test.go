@@ -25,8 +25,9 @@ func TestInstanceOfSourceQuery(t *testing.T) {
 	sourceQuery := NewSourceQueryBuilder().
 		Select(queueQuery).
 		From(util.HINDI).
-		Filter(Or("IG1", "IG2")).
-		Filter(And("IG1", "IG2")).
+		Filter(MatchAny("Genre1", "Genre100")).
+		Filter(MatchAll("IG3", "IG4")).
+		Filter(MatchNone("Racy")).
 		Build()
 
 	assert.NotNil(t, sourceQuery)

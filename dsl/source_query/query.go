@@ -58,7 +58,7 @@ func (b *SourceQueryBuilder) Filter(filter SourceQueryFilter) *SourceQueryBuilde
 	case OR:
 		fmt.Println("Add to OR Filter list")
 	case AND:
-		fmt.Println("Add to OR Filter list")
+		fmt.Println("Add to AND Filter list")
 	case NOT:
 		fmt.Println("Add to NOT Filter list")
 	default:

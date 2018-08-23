@@ -27,10 +27,14 @@ func (f *filter) Fields() []Field {
 	return f.fields
 }
 
-func Or(fields ...Field) SourceQueryFilter {
+func MatchAny(fields ...Field) SourceQueryFilter {
 	return &filter{OR, fields}
 }
 
-func And(fields ...Field) SourceQueryFilter {
+func MatchAll(fields ...Field) SourceQueryFilter {
 	return &filter{AND, fields}
+}
+
+func MatchNone(fields ...Field) SourceQueryFilter {
+	return &filter{NOT, fields}
 }

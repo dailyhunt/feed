@@ -12,3 +12,5 @@
 *.out
 
 vendor/
+.idea/
+items/dummy_test.go
