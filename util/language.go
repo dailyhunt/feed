@@ -6,6 +6,7 @@ const (
 	UNKNOWN Language = iota
 	HINDI
 	ENGLISH
+	TAMIL
 )
 
 func (lang Language) String() string {
