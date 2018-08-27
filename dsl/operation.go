@@ -1,7 +1,7 @@
 package dsl
 
 type ItemOperation interface {
-	Type() (string)
+	Type() string
 }
 
 type FilterOperation struct {
@@ -24,54 +24,54 @@ type BottomKOperation struct {
 	// TODO: Bottom K to collect
 }
 
-func (op *FilterOperation) Type() (string) {
+func (op *FilterOperation) Type() string {
 	return ""
 }
 
-func (op *ScoreOperation) Type() (string) {
+func (op *ScoreOperation) Type() string {
 	return ""
 }
 
-func (op *SortOperation) Type() (string) {
+func (op *SortOperation) Type() string {
 	return ""
 }
 
-func (op *TopKOperation) Type() (string) {
+func (op *TopKOperation) Type() string {
 	return ""
 }
 
-func (op *BottomKOperation) Type() (string) {
+func (op *BottomKOperation) Type() string {
 	return ""
 }
 
-func (op *FilterOperation) Filter() (*FilterOperation) {
+func (op *FilterOperation) Filter() *FilterOperation {
 	return nil
 }
 
-func (op *FilterOperation) Score() (*ScoreOperation) {
+func (op *FilterOperation) Score() *ScoreOperation {
 	return nil
 }
 
-func (op *FilterOperation) ScoreAndFilter() (*ScoreOperation) {
+func (op *FilterOperation) ScoreAndFilter() *ScoreOperation {
 	return nil
 }
 
-func (op *ScoreOperation) Filter() (*ScoreOperation) {
+func (op *ScoreOperation) Filter() *ScoreOperation {
 	return nil
 }
 
-func (op *ScoreOperation) Sort() (*SortOperation) {
+func (op *ScoreOperation) Sort() *SortOperation {
 	return nil
 }
 
-func (op *SortOperation) Sort() (*SortOperation) {
+func (op *SortOperation) Sort() *SortOperation {
 	return nil
 }
 
-func (op *SortOperation) TopK() (*TopKOperation) {
+func (op *SortOperation) TopK() *TopKOperation {
 	return nil
 }
 
-func (op *SortOperation) BottomK() (*BottomKOperation) {
+func (op *SortOperation) BottomK() *BottomKOperation {
 	return nil
 }

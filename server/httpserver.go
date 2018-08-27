@@ -1,20 +1,20 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/contrib/ginrus"
-	"time"
-	"github.com/spf13/cobra"
-	logger "github.com/sirupsen/logrus"
 	"fmt"
 	"github.com/dailyhunt/feed/engine"
+	"github.com/gin-gonic/contrib/ginrus"
+	"github.com/gin-gonic/gin"
+	logger "github.com/sirupsen/logrus"
+	"github.com/spf13/cobra"
+	"time"
 )
 
 type CobraRunner func(cmd *cobra.Command, args []string)
 
 type EndpointsBuilder func() (endpoints []HttpEndpoint)
 
-func HttpServerRunner(appName string, version string, builder EndpointsBuilder, port int) (CobraRunner) {
+func HttpServerRunner(appName string, version string, builder EndpointsBuilder, port int) CobraRunner {
 	return func(cmd *cobra.Command, args []string) {
 		var router = gin.New()
 

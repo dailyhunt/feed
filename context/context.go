@@ -21,6 +21,6 @@ type Context struct {
 	Config  *ConfigContext
 }
 
-type RequestBuilderFn func(c *gin.Context) (*RequestContext)
-type ProfileBuilderFn func(request *RequestContext) (*ProfileContext)
-type ConfigBuilderFn func(request *RequestContext) (*ConfigContext)
+type RequestBuilderFn func(c *gin.Context) *RequestContext
+type ProfileBuilderFn func(request *RequestContext) *ProfileContext
+type ConfigBuilderFn func(request *RequestContext) *ConfigContext

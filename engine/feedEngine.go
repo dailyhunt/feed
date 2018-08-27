@@ -1,9 +1,9 @@
 package engine
 
 import (
+	"github.com/dailyhunt/feed/context"
 	"github.com/dailyhunt/feed/dsl"
 	"github.com/gin-gonic/gin"
-	"github.com/dailyhunt/feed/context"
 )
 
 type FeedEngine struct {
@@ -12,7 +12,7 @@ type FeedEngine struct {
 	Sections []SectionEngine
 }
 
-func BuildFeedEngine(defn *dsl.FeedDefn) (*FeedEngine) {
+func BuildFeedEngine(defn *dsl.FeedDefn) *FeedEngine {
 	var e = new(FeedEngine)
 
 	for _, s := range defn.Sections {

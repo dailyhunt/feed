@@ -1,9 +1,9 @@
 package engine
 
 import (
+	"github.com/dailyhunt/feed/context"
 	"github.com/dailyhunt/feed/dsl"
 	"github.com/gin-gonic/gin"
-	"github.com/dailyhunt/feed/context"
 )
 
 type Engine struct {
@@ -14,7 +14,7 @@ type Engine struct {
 	ConfigBuilderFn  context.ConfigBuilderFn
 }
 
-func Build(defn *dsl.EngineDefn) (*Engine) {
+func Build(defn *dsl.EngineDefn) *Engine {
 	var e = new(Engine)
 
 	e.RequestBuilderFn = defn.RequestBuilderFn

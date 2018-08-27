@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/dailyhunt/feed/dsl"
-	"github.com/gin-gonic/gin"
 	"github.com/dailyhunt/feed/cmd"
-	"github.com/dailyhunt/feed/server"
 	"github.com/dailyhunt/feed/context"
+	"github.com/dailyhunt/feed/dsl"
+	"github.com/dailyhunt/feed/server"
+	"github.com/gin-gonic/gin"
 )
 
 var AppName = "feed"
@@ -17,7 +17,7 @@ func main() {
 }
 
 // only method to be implemented
-func endpointsBuilder() ([]server.HttpEndpoint) {
+func endpointsBuilder() []server.HttpEndpoint {
 	var endpoints = make([]server.HttpEndpoint, 0)
 
 	endpoints = append(endpoints,
@@ -28,17 +28,17 @@ func endpointsBuilder() ([]server.HttpEndpoint) {
 	return endpoints
 }
 
-func configBuilder(request *context.RequestContext) (*context.ConfigContext) {
+func configBuilder(request *context.RequestContext) *context.ConfigContext {
 	// TODO: add config builder
 	return nil
 }
 
-func profileBuilder(request *context.RequestContext) (*context.ProfileContext) {
+func profileBuilder(request *context.RequestContext) *context.ProfileContext {
 	// TODO: add profile builder
 	return nil
 }
 
-func requestBuilder(ginContext *gin.Context) (*context.RequestContext) {
+func requestBuilder(ginContext *gin.Context) *context.RequestContext {
 	return nil
 }
 
@@ -47,7 +47,7 @@ func dataSourceBuilder() {
 
 }
 
-func chronoFeed() (*dsl.EngineDefn) {
+func chronoFeed() *dsl.EngineDefn {
 	var feedEngine = new(dsl.EngineDefn)
 
 	feedEngine.
@@ -57,19 +57,19 @@ func chronoFeed() (*dsl.EngineDefn) {
 		Feed("news").
 		Section("bnews").
 		Pipeline("bnews_pipeline"). // pipeline
-		Source(). // pipeline
-		Source(). // pipeline
-		Items(). // collection of sources of items
-		Filter(). // filters at item level
-		Filter(). // filters at item level
-		Score(). // score at item level
-		Sort(). // collect all and heap sort
-		TopK() // bounded heap
+		Source().                   // pipeline
+		Source().                   // pipeline
+		Items().                    // collection of sources of items
+		Filter().                   // filters at item level
+		Filter().                   // filters at item level
+		Score().                    // score at item level
+		Sort().                     // collect all and heap sort
+		TopK()                      // bounded heap
 
-	return feedEngine;
+	return feedEngine
 }
 
-func inboxFeed() (*dsl.EngineDefn) {
+func inboxFeed() *dsl.EngineDefn {
 	var feedEngine = new(dsl.EngineDefn)
 
 	feedEngine.
@@ -79,14 +79,14 @@ func inboxFeed() (*dsl.EngineDefn) {
 		Feed("news").
 		Section("bnews").
 		Pipeline("bnews_pipeline"). // pipeline
-		Source(). // pipeline
-		Source(). // pipeline
-		Items(). // collection of sources of items
-		Filter(). // filters at item level
-		Filter(). // filters at item level
-		Score(). // score at item level
-		Sort(). // collect all and heap sort
-		TopK() // bounded heap
+		Source().                   // pipeline
+		Source().                   // pipeline
+		Items().                    // collection of sources of items
+		Filter().                   // filters at item level
+		Filter().                   // filters at item level
+		Score().                    // score at item level
+		Sort().                     // collect all and heap sort
+		TopK()                      // bounded heap
 
-	return feedEngine;
+	return feedEngine
 }

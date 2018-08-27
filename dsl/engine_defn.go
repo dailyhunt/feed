@@ -11,25 +11,25 @@ type EngineDefn struct {
 	ConfigBuilderFn  context.ConfigBuilderFn
 }
 
-func (defn *EngineDefn) RequestBuilder(fn context.RequestBuilderFn) (*EngineDefn) {
+func (defn *EngineDefn) RequestBuilder(fn context.RequestBuilderFn) *EngineDefn {
 	defn.RequestBuilderFn = fn
 
 	return defn
 }
 
-func (defn *EngineDefn) ProfileBuilder(fn context.ProfileBuilderFn) (*EngineDefn) {
+func (defn *EngineDefn) ProfileBuilder(fn context.ProfileBuilderFn) *EngineDefn {
 	defn.ProfileBuilderFn = fn
 
 	return defn
 }
 
-func (defn *EngineDefn) ConfigBuilder(fn context.ConfigBuilderFn) (*EngineDefn) {
+func (defn *EngineDefn) ConfigBuilder(fn context.ConfigBuilderFn) *EngineDefn {
 	defn.ConfigBuilderFn = fn
 
 	return defn
 }
 
-func (defn *EngineDefn) Feed(id string) (*FeedDefn) {
+func (defn *EngineDefn) Feed(id string) *FeedDefn {
 	// create a new feed
 	var feedDefn = new(FeedDefn)
 	feedDefn.Id = id

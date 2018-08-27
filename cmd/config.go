@@ -18,7 +18,7 @@ type logConfig struct {
 	Level  string
 	Format logFormat
 	Output logOutput
-	File struct {
+	File   struct {
 		Filename   string
 		MaxSize    int
 		Compress   bool

@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"fmt"
+	"github.com/spf13/cobra"
 )
 
-func versionCommand(appName string, version string) (*cobra.Command) {
+func versionCommand(appName string, version string) *cobra.Command {
 	return &cobra.Command{
 		Use:   "version",
 		Short: "Print the version number of " + appName,

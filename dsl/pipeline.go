@@ -6,7 +6,7 @@ type PipelineDefn struct {
 }
 
 // should we be passing source query ?
-func (pipeline *PipelineDefn) Source() (*SourcePipeline) {
+func (pipeline *PipelineDefn) Source() *SourcePipeline {
 	// it will create a new source
 
 	return nil

@@ -9,7 +9,7 @@ type SectionEngine struct {
 	Pipelines []PipelineEngine
 }
 
-func BuildSectionEngine(defn *dsl.SectionDefn) (*SectionEngine) {
+func BuildSectionEngine(defn *dsl.SectionDefn) *SectionEngine {
 	var e = new(SectionEngine)
 
 	for _, p := range defn.Pipelines {

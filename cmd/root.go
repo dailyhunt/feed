@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/dailyhunt/feed/server"
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -10,7 +11,6 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 	"strings"
-	"github.com/dailyhunt/feed/server"
 )
 
 func Execute(appName string, version string, builder server.EndpointsBuilder) {
