@@ -2,7 +2,6 @@ package server
 
 import (
 	"github.com/dailyhunt/feed/dsl"
-	"github.com/dailyhunt/feed/engine"
 )
 
 type HttpMethod string
@@ -13,8 +12,7 @@ const (
 )
 
 type HttpEndpoint struct {
-	Path                 string
-	Method               HttpMethod
-	EngineContextBuilder engine.ContextBuilderFn
-	FeedSet              *dsl.FeedSet
+	Path       string
+	Method     HttpMethod
+	EngineDefn *dsl.EngineDefn
 }

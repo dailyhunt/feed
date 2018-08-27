@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/dailyhunt/feed/cmd"
 	"github.com/dailyhunt/feed/server"
-	"github.com/dailyhunt/feed/engine"
+	"github.com/dailyhunt/feed/context"
 )
 
 var AppName = "feed"
@@ -17,34 +17,28 @@ func main() {
 }
 
 // only method to be implemented
-func endpointsBuilder() (endpoints []server.HttpEndpoint) {
-	endpoints = make([]server.HttpEndpoint, 1)
+func endpointsBuilder() ([]server.HttpEndpoint) {
+	var endpoints = make([]server.HttpEndpoint, 0)
 
 	endpoints = append(endpoints,
-		server.HttpEndpoint{Path: "inbox",
-			Method: server.PostMethod,
-			EngineContextBuilder: engine.ContextBuilder(requestBuilder, profileBuilder, configBuilder),
-			FeedSet: inboxFeed()},
-		server.HttpEndpoint{Path: "chrono",
-			Method: server.PostMethod,
-			EngineContextBuilder: engine.ContextBuilder(requestBuilder, profileBuilder, configBuilder),
-			FeedSet: chronoFeed()},
+		server.HttpEndpoint{Path: "inbox", Method: server.PostMethod, EngineDefn: inboxFeed()},
+		server.HttpEndpoint{Path: "chrono", Method: server.PostMethod, EngineDefn: chronoFeed()},
 	)
 
 	return endpoints
 }
 
-func configBuilder(request *engine.RequestContext) (*engine.ConfigContext) {
+func configBuilder(request *context.RequestContext) (*context.ConfigContext) {
 	// TODO: add config builder
 	return nil
 }
 
-func profileBuilder(request *engine.RequestContext) (*engine.ProfileContext) {
+func profileBuilder(request *context.RequestContext) (*context.ProfileContext) {
 	// TODO: add profile builder
 	return nil
 }
 
-func requestBuilder(c *gin.Context) (*engine.RequestContext) {
+func requestBuilder(ginContext *gin.Context) (*context.RequestContext) {
 	return nil
 }
 
@@ -53,10 +47,13 @@ func dataSourceBuilder() {
 
 }
 
-func chronoFeed() (*dsl.FeedSet) {
-	var feedSet = new(dsl.FeedSet)
+func chronoFeed() (*dsl.EngineDefn) {
+	var feedEngine = new(dsl.EngineDefn)
 
-	feedSet.
+	feedEngine.
+		RequestBuilder(requestBuilder).
+		ProfileBuilder(profileBuilder).
+		ConfigBuilder(configBuilder).
 		Feed("news").
 		Section("bnews").
 		Pipeline("bnews_pipeline"). // pipeline
@@ -69,9 +66,27 @@ func chronoFeed() (*dsl.FeedSet) {
 		Sort(). // collect all and heap sort
 		TopK() // bounded heap
 
-	return feedSet;
+	return feedEngine;
 }
 
-func inboxFeed() (*dsl.FeedSet) {
-	return nil
+func inboxFeed() (*dsl.EngineDefn) {
+	var feedEngine = new(dsl.EngineDefn)
+
+	feedEngine.
+		RequestBuilder(requestBuilder).
+		ProfileBuilder(profileBuilder).
+		ConfigBuilder(configBuilder).
+		Feed("news").
+		Section("bnews").
+		Pipeline("bnews_pipeline"). // pipeline
+		Source(). // pipeline
+		Source(). // pipeline
+		Items(). // collection of sources of items
+		Filter(). // filters at item level
+		Filter(). // filters at item level
+		Score(). // score at item level
+		Sort(). // collect all and heap sort
+		TopK() // bounded heap
+
+	return feedEngine;
 }

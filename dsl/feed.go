@@ -1,17 +1,18 @@
 package dsl
 
-type Feed struct {
+type FeedDefn struct {
 	Id string
-	Sections []Section
+	Sections []SectionDefn
 
 	// TODO: add params to it for A/B, platform, or param based selection
 }
 
-func New() (*Feed) {
-	return nil
-}
-
-func (feed *Feed) Section(id string) (section *Section) {
+func (feed *FeedDefn) Section(id string) (*SectionDefn) {
 	// create a new section
-	return
+	var sectionDefn = new(SectionDefn)
+	sectionDefn.Id = id
+
+	feed.Sections = append(feed.Sections, *sectionDefn)
+
+	return sectionDefn
 }

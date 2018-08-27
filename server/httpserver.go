@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	logger "github.com/sirupsen/logrus"
 	"fmt"
+	"github.com/dailyhunt/feed/engine"
 )
 
 type CobraRunner func(cmd *cobra.Command, args []string)
@@ -20,12 +21,14 @@ func HttpServerRunner(appName string, version string, builder EndpointsBuilder, 
 		router.Use(ginrus.Ginrus(logger.StandardLogger(), time.RFC3339Nano, false))
 		router.Use(gin.Recovery())
 
-		//var endpoints = builder()
+		var endpoints = builder()
 
-		//for _, _endpoint := range endpoints {
-		//	// TODO: build feed engine from end points
-		//
-		//}
+		for _, endpoint := range endpoints {
+			var e = engine.Build(endpoint.EngineDefn)
+
+			logger.Info(fmt.Sprintf("Registering endpoint: METHOD=%s, PATH=%s", endpoint.Method, endpoint.Path))
+			router.Handle(string(endpoint.Method), endpoint.Path, e.Serve)
+		}
 
 		// Do Stuff Here
 		logger.Info(fmt.Sprintf("Starting %s server [%s] on port=%d", appName, version, port))

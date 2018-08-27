@@ -1,11 +1,16 @@
 package dsl
 
-type Section struct {
+type SectionDefn struct {
 	Id        string
-	Pipelines []Pipeline
+	Pipelines []PipelineDefn
 }
 
-func (section *Section) Pipeline(id string) (pipeline *Pipeline) {
+func (section *SectionDefn) Pipeline(id string) (*PipelineDefn) {
 	// create a new pipeline
-	return
+	var pipelineDefn = new(PipelineDefn)
+	pipelineDefn.Id = id
+
+	section.Pipelines = append(section.Pipelines, *pipelineDefn)
+
+	return pipelineDefn
 }

@@ -13,25 +13,17 @@ import (
 	"github.com/dailyhunt/feed/server"
 )
 
-var AppName = "feed"
-var Version = "0.0.1"
-var endpointsBuilder server.EndpointsBuilder = nil
-var port = 8080
-
-var cfgFile string
-
-var rootCmd = &cobra.Command{
-	Use:   "feed",
-	Short: "feed",
-	Long:  ``,
-	Run:   server.HttpServerRunner(AppName, Version, endpointsBuilder, port),
-}
-
 func Execute(appName string, version string, builder server.EndpointsBuilder) {
-	AppName = appName
-	Version = version
-	endpointsBuilder = builder
-	port = viper.GetInt("server.port")
+	var rootCmd = &cobra.Command{
+		Use:   "feed",
+		Short: "feed",
+		Long:  ``,
+	}
+
+	initEnv(rootCmd, appName)
+
+	rootCmd.AddCommand(versionCommand(appName, version))
+	rootCmd.AddCommand(serverCommand(appName, version, builder))
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -39,9 +31,8 @@ func Execute(appName string, version string, builder server.EndpointsBuilder) {
 	}
 }
 
-func init() {
-	cobra.OnInitialize(initConfig)
-
+func initEnv(rootCmd *cobra.Command, appName string) {
+	var cfgFile string
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file")
 
 	//
@@ -52,9 +43,11 @@ func init() {
 	//
 	// enable environment
 	//
-	viper.SetEnvPrefix(AppName)
+	viper.SetEnvPrefix(appName)
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv()
+
+	initConfig(cfgFile, appName)
 }
 
 func defaultConfig() {
@@ -65,7 +58,7 @@ func defaultConfig() {
 	viper.SetDefault("log.Level", "info")
 }
 
-func initConfig() {
+func initConfig(cfgFile string, appName string) {
 	// Don't forget to read config either from cfgFile or from home directory!
 	if cfgFile != "" {
 		// Use config file from the flag.
@@ -82,9 +75,9 @@ func initConfig() {
 		viper.SetConfigName(fmt.Sprintf("config-%s", env))
 		viper.SetConfigType("yaml")
 		viper.AddConfigPath("./config")
-		viper.AddConfigPath("./" + AppName + "/config")
-		viper.AddConfigPath("$HOME/" + AppName + "/config")
-		viper.AddConfigPath("/usr/local/etc/" + AppName + "/config")
+		viper.AddConfigPath("./" + appName + "/config")
+		viper.AddConfigPath("$HOME/" + appName + "/config")
+		viper.AddConfigPath("/usr/local/etc/" + appName + "/config")
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
