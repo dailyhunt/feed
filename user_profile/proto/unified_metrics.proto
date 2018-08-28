@@ -1,0 +1,209 @@
+syntax = "proto3";
+package userprofile;
+
+// Enums
+// Renamed FollowStatusEnum: EntityPrefStatusEnum
+enum EntityPrefStatusEnum {
+    UNKNOWN = 0;
+    FOLLOWED = 1;
+    UNFOLLOWED = 2;
+    BLOCKED = 3;
+    NOT_INTERESTED = 4;
+}
+
+// Metrics
+message UnifiedMetric {
+    int64 click_cnt = 1;
+    float click_ds = 2;
+    int64 view_cnt = 3;
+    float view_ds = 4;
+    int64 last_decay = 5; //20180726103029 -- yyyyMMddHHmmss
+
+    int32 num_hour_decay = 6;
+    int64 last_access_time = 7;
+
+    int64 bounce_cnt = 8;
+    float bounce_ds = 9;
+    int64 shallow_cnt = 10;
+    float shallow_ds = 11;
+    int64 deep_cnt = 12;
+    float deep_ds = 13;
+    int64 complete_cnt = 14;
+    float complete_ds = 15;
+    int64 timespent = 16;
+    int64 like_cnt = 17;
+    float like_ds = 18;
+    int64 share_cnt = 19;
+    float share_ds = 20;
+    int64 dislike_cnt = 21;
+    float dislike_ds = 22;
+    int64 comment_cnt = 23;
+    float comment_ds = 24;
+    int64 show_more_cnt = 25;
+    float show_more_ds = 26;
+}
+
+// Renamed FollowMetric: EntityPrefMetric
+message EntityPrefMetric {
+    int64 last_access_time = 1;
+    EntityPrefStatusEnum status = 2;
+    int64 status_cnt = 3;
+}
+
+message AccessMetric {
+    int64 last_access_time = 1;
+    int64 access_cnt = 2;
+}
+
+// Renamed DislikeMetric: ItemPrefMetric
+message ItemPrefMetric {
+    int64 last_access_time = 1;
+    int64 dislike_cnt = 2;
+}
+
+message CollectionPrefMetric {
+    int64 last_access_time = 1;
+    int64 dislike_cnt = 2;
+}
+
+message UPIPrefMetric {
+    int64 last_access_time = 1;
+    string upi_val = 2;
+}
+
+// Redis/Cache metric
+message CUnifiedMetric {
+    UnifiedMetric card_metric = 1;
+    UnifiedMetric swipe_metric = 2;
+    UnifiedMetric notif_metric = 3;
+    UnifiedMetric engagement_metric = 4;
+}
+
+// Messages
+message Featurewise {
+    map<string, UnifiedMetric> ig = 1;
+    map<string, UnifiedMetric> loc = 2;
+    map<string, UnifiedMetric> ner = 3;
+    map<string, UnifiedMetric> type = 4;
+    map<string, UnifiedMetric> src = 5;
+    map<string, UnifiedMetric> pqs = 6;
+    map<string, UnifiedMetric> nsfw = 7;
+    map<string, UnifiedMetric> lang = 8;
+    map<string, UnifiedMetric> feed = 9;
+    map<string, UnifiedMetric> grp = 10;
+    map<string, UnifiedMetric> tab = 11;
+    map<string, UnifiedMetric> info = 12;
+    map<string, UnifiedMetric> genre = 13;
+    map<string, UnifiedMetric> sub_genre = 14;
+    map<string, UnifiedMetric> uc_type = 15;
+    map<string, UnifiedMetric> ucs_type = 16;
+    map<string, UnifiedMetric> u_loc = 17;
+    map<string, UnifiedMetric> ui_type = 18;
+    map<string, UnifiedMetric> channel = 19;
+    map<string, UnifiedMetric> cat = 20;
+    map<string, UnifiedMetric> topic = 21;
+    map<string, UnifiedMetric> tag = 22;
+    map<string, UnifiedMetric> collection = 23;
+}
+
+message CFeaturewise {
+    map<string, CUnifiedMetric> ig = 1;
+    map<string, CUnifiedMetric> loc = 2;
+    map<string, CUnifiedMetric> ner = 3;
+    map<string, CUnifiedMetric> type = 4;
+    map<string, CUnifiedMetric> src = 5;
+    map<string, CUnifiedMetric> pqs = 6;
+    map<string, CUnifiedMetric> nsfw = 7;
+    map<string, CUnifiedMetric> lang = 8;
+    map<string, CUnifiedMetric> feed = 9;
+    map<string, CUnifiedMetric> grp = 10;
+    map<string, CUnifiedMetric> tab = 11;
+    map<string, CUnifiedMetric> info = 12;
+    map<string, CUnifiedMetric> genre = 13;
+    map<string, CUnifiedMetric> sub_genre = 14;
+    map<string, CUnifiedMetric> uc_type = 15;
+    map<string, CUnifiedMetric> ucs_type = 16;
+    map<string, CUnifiedMetric> u_loc = 17;
+    map<string, CUnifiedMetric> ui_type = 18;
+    map<string, CUnifiedMetric> channel = 19;
+    map<string, CUnifiedMetric> cat = 20;
+    map<string, CUnifiedMetric> topic = 21;
+    map<string, CUnifiedMetric> tag = 22;
+    map<string, CUnifiedMetric> collection = 23;
+}
+
+message TabAccess {
+    map<string, AccessMetric> tab = 1;
+}
+
+message TabAccessNS {
+    map<string, TabAccess> values = 1;
+}
+
+// Renamed FollowStatus: EntityPref
+message EntityPref {
+    map<string, EntityPrefMetric> pref = 1;
+}
+
+// Renamed FollowStatusNS: EntityPrefs
+message EntityPrefs {
+    map<string, EntityPref> values = 1;
+}
+
+message UPIPref {
+    map<string, UPIPrefMetric> pref = 1;
+}
+
+message UPIPrefs {
+    map<string, UPIPref> values = 1;
+}
+
+// Renamed DislikePref: ItemPrefs
+message ItemPrefs {
+    map<string, ItemPrefMetric> ig = 1;
+    map<string, ItemPrefMetric> loc = 2;
+    map<string, ItemPrefMetric> src = 3;
+    map<string, ItemPrefMetric> nsfw = 4;
+    map<string, ItemPrefMetric> genre = 5;
+    map<string, ItemPrefMetric> sub_genre = 6;
+    map<string, ItemPrefMetric> info = 7;
+}
+
+message CollectionPrefs {
+    map<string, CollectionPrefMetric> id = 1;
+}
+
+// In NRT HBase put the following:
+// cid~news~hi~card             -> Featurewise
+// cid~news~hi~swipe            -> Featurewise
+// cid~news~hi~notif            -> Featurewise
+// cid~news~hi~engagement       -> Featurewise
+// cid~all~all~tab_access       -> TabAccessNS
+// cid~all~all~follow_status    -> EntityPrefs      (rename key to cid~all~all~entity_prefs)
+// cid~all~all~upi              -> UPIPrefs
+
+// In Pref HBase put the following:
+// cid~news~hi~item_prefs         -> ItemPrefs
+// cid~news~en~item_prefs         -> ItemPrefs
+// cid~news~hi~collection_prefs   -> CollectionPrefs
+// cid~news~en~collection_prefs   -> CollectionPrefs
+// cid~all~all~follow_status      -> EntityPrefs        (rename key to cid~all~all~entity_prefs)
+// cid~all~all~upi                -> UPIPrefs
+
+// In NRT Cache (key = N4_cid) put the following in HashMap:
+// news~hi              -> CFeaturewise
+// news~en              -> CFeaturewise
+// buzz~hi              -> CFeaturewise
+// news~all             -> CFeaturewise
+// all~all              -> CFeaturewise
+// all~tab_access       -> TabAccessNS
+// all~follow_status    -> EntityPrefs      (rename key to all~entity_prefs)
+// all~upi              -> UPIPrefs
+
+// In Pref Cache (key = P4_cid) put the following in HashMap:
+// news~hi~item_prefs         -> ItemPrefs
+// news~en~item_prefs         -> ItemPrefs
+// news~hi~collection_prefs   -> CollectionPrefs
+// news~en~collection_prefs   -> CollectionPrefs
+// all~all~follow_status      -> EntityPrefs        (rename key to all~all~entity_prefs)
+// all~all~upi                -> UPIPrefs

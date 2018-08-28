@@ -1,0 +1,116 @@
+syntax = "proto3";
+package userprofile;
+
+// Messages
+message NewsCard {
+    map<string, NewsClickViewMetric> ig = 1;
+    map<string, NewsClickViewMetric> loc = 2;
+    map<string, NewsClickViewMetric> ner = 3;
+    map<string, NewsClickViewMetric> type = 4;
+    map<string, NewsClickViewMetric> src = 5;
+    map<string, NewsClickViewMetric> pqs = 6;
+    map<string, NewsClickViewMetric> nsfw = 7;
+    map<string, NewsClickViewMetric> lang = 8;
+    map<string, NewsClickViewMetric> feed = 9;
+    map<string, NewsClickViewMetric> grp = 10;
+    map<string, NewsClickViewMetric> tab = 11;
+    map<string, NewsClickViewMetric> info = 12;
+}
+
+message NewsSwipe {
+    map<string, NewsClickViewMetric> ig = 1;
+    map<string, NewsClickViewMetric> loc = 2;
+    map<string, NewsClickViewMetric> ner = 3;
+    map<string, NewsClickViewMetric> type = 4;
+    map<string, NewsClickViewMetric> src = 5;
+    map<string, NewsClickViewMetric> pqs = 6;
+    map<string, NewsClickViewMetric> nsfw = 7;
+    map<string, NewsClickViewMetric> lang = 8;
+    map<string, NewsClickViewMetric> feed = 9;
+    map<string, NewsClickViewMetric> grp = 10;
+    map<string, NewsClickViewMetric> tab = 11;
+    map<string, NewsClickViewMetric> info = 12;
+}
+
+message NewsNotif {
+    map<string, NewsClickViewMetric> ig = 1;
+    map<string, NewsClickViewMetric> loc = 2;
+    map<string, NewsClickViewMetric> ner = 3;
+    map<string, NewsClickViewMetric> type = 4;
+    map<string, NewsClickViewMetric> src = 5;
+    map<string, NewsClickViewMetric> pqs = 6;
+    map<string, NewsClickViewMetric> nsfw = 7;
+    map<string, NewsClickViewMetric> lang = 8;
+    map<string, NewsClickViewMetric> feed = 9;
+    map<string, NewsClickViewMetric> grp = 10;
+    map<string, NewsClickViewMetric> tab = 11;
+    map<string, NewsClickViewMetric> info = 12;
+}
+
+message NewsEngagement {
+    map<string, NewsEngagementMetric> ig = 1;
+    map<string, NewsEngagementMetric> loc = 2;
+    map<string, NewsEngagementMetric> ner = 3;
+    map<string, NewsEngagementMetric> type = 4;
+    map<string, NewsEngagementMetric> src = 5;
+    map<string, NewsEngagementMetric> pqs = 6;
+    map<string, NewsEngagementMetric> nsfw = 7;
+    map<string, NewsEngagementMetric> lang = 8;
+    map<string, NewsEngagementMetric> feed = 9;
+    map<string, NewsEngagementMetric> grp = 10;
+    map<string, NewsEngagementMetric> tab = 11;
+    map<string, NewsEngagementMetric> info = 12;
+}
+
+// Metrics
+message NewsClickViewMetric {
+    int64 click_cnt = 1;
+    float click_ds = 2;
+    int64 view_cnt = 3;
+    float view_ds = 4;
+    int32 last_decay = 5;
+}
+
+message NewsEngagementMetric {
+    int64 bounce_cnt = 1;
+    float bounce_ds = 2;
+    int64 shallow_cnt = 3;
+    float shallow_ds = 4;
+    int64 deep_cnt = 5;
+    float deep_ds = 6;
+    int64 complete_cnt = 7;
+    float complete_ds = 8;
+    int64 timespent = 9;
+    int64 like_cnt = 10;
+    float like_ds = 11;
+    int64 share_cnt = 12;
+    float share_ds = 13;
+    int64 dislike_cnt = 14;
+    float dislike_ds = 15;
+    int64 comment_cnt = 16;
+    float comment_ds = 17;
+    int32 last_decay = 18;
+}
+
+// Redis message
+message RedisNewsMessage {
+    map<string, RedisNewsMetric> ig = 1;
+    map<string, RedisNewsMetric> loc = 2;
+    map<string, RedisNewsMetric> ner = 3;
+    map<string, RedisNewsMetric> type = 4;
+    map<string, RedisNewsMetric> src = 5;
+    map<string, RedisNewsMetric> pqs = 6;
+    map<string, RedisNewsMetric> nsfw = 7;
+    map<string, RedisNewsMetric> lang = 8;
+    map<string, RedisNewsMetric> feed = 9;
+    map<string, RedisNewsMetric> grp = 10;
+    map<string, RedisNewsMetric> tab = 11;
+    map<string, RedisNewsMetric> info = 12;
+}
+// Redis metric
+message RedisNewsMetric {
+    NewsClickViewMetric card_metric = 1;
+    NewsClickViewMetric swipe_metric = 2;
+    NewsClickViewMetric notif_metric = 3;
+    NewsEngagementMetric engagement_metric = 4;
+}
