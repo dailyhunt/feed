@@ -53,6 +53,7 @@ func (pr *ProfileReader) getRawProfile(wg *sync.WaitGroup, profile *RawUserProfi
 	}
 }
 
+// TODO: LZ4 and message pack integration
 func (pr *ProfileReader) getPrefProfile(wg *sync.WaitGroup, profile *RawUserProfile, cid string) {
 	defer wg.Done()
 	redisKey := fmt.Sprintf("NRT_V3~%s~pref", cid)
