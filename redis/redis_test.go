@@ -1,4 +1,4 @@
-package redis
+package feed_redis
 
 import (
 	"fmt"
